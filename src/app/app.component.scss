@@ -1,0 +1,6 @@
+:host { display: block; }
+.app-container { height: 100vh; }
+.app-main { padding: 16px; }
+.spacer { flex: 1 1 auto; }
+.title { font-weight: 600; margin-left: 8px; }
+@media (min-width: 960px) { .hide-desktop { display: none; } }
