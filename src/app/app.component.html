@@ -1,18 +1,45 @@
 <mat-sidenav-container class="app-container">
   <mat-sidenav #sidenav mode="side" [opened]="isWide">
     <mat-nav-list>
-      <a mat-list-item routerLink="/home" (click)="closeIfMobile(sidenav)"
-        >Home</a
+      <a
+        mat-list-item
+        routerLink="/home"
+        routerLinkActive="active"
+        (click)="closeIfMobile(sidenav)"
       >
-      <a mat-list-item routerLink="/lecturers" (click)="closeIfMobile(sidenav)"
-        >Lecturers</a
+        <mat-icon matListItemIcon color="primary">home</mat-icon>
+        <span matListItemTitle>Home</span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/lecturers"
+        routerLinkActive="active"
+        (click)="closeIfMobile(sidenav)"
       >
-      <a mat-list-item routerLink="/subjects" (click)="closeIfMobile(sidenav)"
-        >Subjects</a
+        <mat-icon matListItemIcon color="primary">person</mat-icon>
+        <span matListItemTitle>Lecturers</span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/subjects"
+        routerLinkActive="active"
+        (click)="closeIfMobile(sidenav)"
       >
-      <a mat-list-item routerLink="/loads" (click)="closeIfMobile(sidenav)"
-        >Loads</a
+        <mat-icon matListItemIcon color="primary">book</mat-icon>
+        <span matListItemTitle>Subjects</span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/loads"
+        routerLinkActive="active"
+        (click)="closeIfMobile(sidenav)"
       >
+        <mat-icon matListItemIcon color="primary">assignment</mat-icon>
+        <span matListItemTitle>Loads</span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
 
