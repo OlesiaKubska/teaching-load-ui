@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
+
 type Query = Record<string, string | number | boolean | null | undefined>;
 
 @Injectable({
