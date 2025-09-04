@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiClientService } from '../../../core/api-client.service';
-
-type HealthResponse = { message: string };
+import { HealthResponse } from '../../../shared/models/health.model';
 
 @Injectable({ providedIn: 'root' })
 export class HealthService {
