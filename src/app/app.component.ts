@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
   title = 'teaching-load-ui';
 
   private bp = inject(BreakpointObserver);
@@ -31,6 +33,7 @@ export class AppComponent {
 
   constructor() {
     this.bp.observe('(min-width: 960px)').subscribe(r => (this.isWide = r.matches));
+    console.log('[ENV] apiBaseUrl =', environment.apiBaseUrl);
   }
 
   closeIfMobile(sidenav: MatSidenav) {
