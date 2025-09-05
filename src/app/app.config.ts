@@ -5,8 +5,19 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpErrorInterceptor } from './core/http-error-interceptor.service';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimationsAsync(), provideHttpClient(withInterceptorsFromDi()), { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },]
+  providers: [
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptorsFromDi()),
+
+    // Attach Authorization header if token exists
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
+    // Handle global API errors (401, 403, 500)
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
 };
