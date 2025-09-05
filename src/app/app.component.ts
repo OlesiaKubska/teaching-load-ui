@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive  } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -10,12 +10,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { environment } from '../environments/environment';
+import { AuthService } from './features/auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule,
     RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
@@ -25,7 +28,7 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  
+  auth = inject(AuthService);
   title = 'teaching-load-ui';
 
   private bp = inject(BreakpointObserver);
