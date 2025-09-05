@@ -9,6 +9,7 @@ import { ApiClientService } from '../../../../core/api-client.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent {
   private api = inject(ApiClientService);
   apiStatus = "checking...";

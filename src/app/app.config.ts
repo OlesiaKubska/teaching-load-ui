@@ -14,10 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
 
-    // Attach Authorization header if token exists
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-
-    // Handle global API errors (401, 403, 500)
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
 };

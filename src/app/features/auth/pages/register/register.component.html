@@ -1,0 +1,87 @@
+<h2 class="auth-title">
+  <span>Register</span>
+  <a class="auth-link" routerLink="/auth/login"
+    >Already have an account? <b>Login</b></a
+  >
+</h2>
+
+<div class="auth-card">
+  <form [formGroup]="form" (ngSubmit)="submit()" autocomplete="on">
+    <div class="row-2">
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput formControlName="firstName" required />
+        <mat-error *ngIf="form.get('firstName')?.hasError('required')"
+          >Required</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="lastName" required />
+        <mat-error *ngIf="form.get('lastName')?.hasError('required')"
+          >Required</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        type="email"
+        autocomplete="email"
+        required
+      />
+      <mat-error *ngIf="form.get('email')?.hasError('required')"
+        >Email is required</mat-error
+      >
+      <mat-error *ngIf="form.get('email')?.hasError('email')"
+        >Invalid email</mat-error
+      >
+    </mat-form-field>
+
+    <div class="row-2">
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          autocomplete="new-password"
+          required
+        />
+        <mat-error *ngIf="form.get('password')?.hasError('required')"
+          >Required</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm password</mat-label>
+        <input
+          matInput
+          formControlName="confirm"
+          type="password"
+          autocomplete="new-password"
+          required
+        />
+        <mat-error *ngIf="form.get('confirm')?.hasError('required')"
+          >Required</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      class="submit-btn"
+      type="submit"
+      [disabled]="loading || form.invalid"
+    >
+      {{ loading ? "Creating…" : "Create account" }}
+    </button>
+
+    <div *ngIf="error" class="form-error">{{ error }}</div>
+  </form>
+</div>
