@@ -1,2 +1,19 @@
-<p>home works!</p>
-<p><strong>API status:</strong> {{ apiStatus }}</p>
+<div class="dashboard">
+  <mat-card class="card" (click)="navigate('/lecturers')">
+    <mat-card-title>Teachers</mat-card-title>
+    <mat-card-content>{{ teachersCount }}</mat-card-content>
+    <button mat-button color="primary">View Teachers</button>
+  </mat-card>
+
+  <mat-card class="card" (click)="navigate('/subjects')">
+    <mat-card-title>Subjects</mat-card-title>
+    <mat-card-content>{{ subjectsCount }}</mat-card-content>
+    <button mat-button color="primary">View Subjects</button>
+  </mat-card>
+
+  <mat-card class="card" (click)="navigate('/loads')">
+    <mat-card-title>Loads</mat-card-title>
+    <mat-card-content>{{ loadsCount }}</mat-card-content>
+    <button mat-button color="primary">View Loads</button>
+  </mat-card>
+</div>
