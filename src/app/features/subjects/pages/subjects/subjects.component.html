@@ -1,0 +1,24 @@
+<h2 class="page-title">Subjects</h2>
+
+<div class="toolbar">
+  <button mat-flat-button color="primary" (click)="openCreateDialog()">
+    + Add Subject
+  </button>
+</div>
+
+<app-data-table
+  [columns]="columns"
+  [data]="rows"
+  [length]="total"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25]"
+  [loading]="loading"
+  [showActions]="true"
+  (rowClick)="onRowClick($event)"
+  (edit)="onEdit($event)"
+  (remove)="onDelete($event)"
+  (page)="onPage($event)"
+  (sort)="onSort($event)"
+>
+</app-data-table>

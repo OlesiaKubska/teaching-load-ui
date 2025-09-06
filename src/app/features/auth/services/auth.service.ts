@@ -49,27 +49,31 @@ export class AuthService {
     return this.hasToken();
   }
 
-  /** Login -> server returns token; save it and mark as authenticated */
   login(data: LoginDto) {
     return this.api.post<LoginResponse>('/auth/login', data).pipe(
       tap((res) => {
+        // console.log('[AuthService] Login response:', res);
+
         localStorage.setItem(TOKEN_KEY, res.token);
+        // console.log('[AuthService] Token saved to localStorage:', res.token);
+
         this._isAuth$.next(true);
       })
     );
   }
 
-  /** Register -> server returns only {success,message}; DO NOT store token here */
   register(data: RegisterDto) {
     const payload = {
       username: `${data.firstName ?? ''} ${data.lastName ?? ''}`.trim(),
       email: data.email,
       password: data.password,
     };
+    // console.log('[AuthService] Register payload:', payload);
     return this.api.post<RegisterResponse>('/auth/register', payload);
   }
 
   logout() {
+    // console.log('[AuthService] Logging out, removing token');
     localStorage.removeItem(TOKEN_KEY);
     this._isAuth$.next(false);
     this.router.navigate(['/home']);

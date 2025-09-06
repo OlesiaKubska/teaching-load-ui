@@ -1,0 +1,44 @@
+.data-table {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 8px;
+  min-height: 240px;
+}
+
+.table-wrap {
+  overflow: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-mdc-header-cell {
+  background: #fafafa;
+  font-weight: 600;
+}
+
+td.mat-mdc-cell,
+th.mat-mdc-header-cell {
+  padding: 10px 16px;
+  white-space: nowrap;
+}
+
+.actions-col {
+  width: 106px;
+  text-align: right;
+
+  button + button {
+    margin-left: 6px;
+  }
+}
+
+tr.empty td {
+  text-align: center;
+  color: #666;
+  padding: 24px 12px;
+  font-style: italic;
+}

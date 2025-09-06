@@ -1,0 +1,36 @@
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+
+  button {
+    font-weight: 500;
+  }
+}
+
+::ng-deep app-data-table {
+  mat-table {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow:
+      0 4px 10px rgba(0, 0, 0, 0.05),
+      0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  mat-header-cell {
+    font-weight: 600;
+    background: #f5f6fa;
+  }
+
+  mat-cell, mat-header-cell {
+    padding: 12px;
+  }
+}
