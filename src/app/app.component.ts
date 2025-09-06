@@ -11,6 +11,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { environment } from '../environments/environment';
 import { AuthService } from './features/auth/services/auth.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,9 @@ import { AuthService } from './features/auth/services/auth.service';
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    MatButtonModule,],
+    MatButtonModule,
+    MatDialogModule
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

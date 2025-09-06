@@ -1,0 +1,26 @@
+@use '../../../../styles/shared-ui.mixins' as *;
+
+.auth-title {
+  @include auth-title;
+}
+
+.auth-card {
+  @include auth-card;
+}
+
+.row-2 {
+  @include row-2;
+}
+
+.form-error {
+  @include form-error;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 44px;
+}

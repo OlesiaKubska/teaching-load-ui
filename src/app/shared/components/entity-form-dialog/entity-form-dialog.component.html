@@ -1,0 +1,105 @@
+<h2 mat-dialog-title>
+  {{ isEditMode ? "Edit" : "Create" }}
+  {{
+    data.type === "teacher"
+      ? "Teacher"
+      : data.type === "subject"
+      ? "Subject"
+      : "Teaching Load"
+  }}
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" mat-dialog-content>
+  <!-- Teacher form -->
+  <ng-container *ngIf="data.type === 'teacher'">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Middle Name</mat-label>
+      <input matInput formControlName="middleName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Degree</mat-label>
+      <input matInput formControlName="degree" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Position</mat-label>
+      <input matInput formControlName="position" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Experience (years)</mat-label>
+      <input matInput type="number" formControlName="experience" />
+    </mat-form-field>
+  </ng-container>
+
+  <!-- Subject form -->
+  <ng-container *ngIf="data.type === 'subject'">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Subject Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Hours</mat-label>
+      <input matInput type="number" formControlName="hours" />
+    </mat-form-field>
+  </ng-container>
+
+  <!-- Load form -->
+  <ng-container *ngIf="data.type === 'load'">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Teacher</mat-label>
+      <mat-select formControlName="teacher">
+        <mat-option *ngFor="let t of teachers" [value]="t._id">
+          {{ t.firstName }} {{ t.lastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Subject</mat-label>
+      <mat-select formControlName="subject">
+        <mat-option *ngFor="let s of subjects" [value]="s._id">
+          {{ s.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Group</mat-label>
+      <input matInput formControlName="group" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="lecture">Lecture</mat-option>
+        <mat-option value="practice">Practice</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-container>
+
+  <!-- Actions -->
+  <div class="dialog-actions" mat-dialog-actions>
+    <button mat-button type="button" (click)="onCancel()">Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid || loading"
+    >
+      {{ isEditMode ? "Update" : "Create" }}
+    </button>
+  </div>
+</form>
