@@ -1,15 +1,42 @@
+@use '../../../../../styles/shared-ui.mixins' as *;
+
 .page-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 16px 0;
+  @include auth-title;
+  max-width: 100%;
+  padding: 0 16px;
+
+  span {
+    font-size: 24px;
+  }
 }
 
-.toolbar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 12px;
+.filters {
+  margin: 16px auto;
+  max-width: 1200px;
+  padding: 0 16px;
+
+  .filters-row {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    flex-wrap: wrap;
+
+    mat-form-field {
+      min-width: 160px;
+      flex: 1 1 auto;
+
+      @include form-field-style;
+    }
+  }
 
   button {
-    font-weight: 500;
+    @include primary-button;
   }
+}
+
+app-data-table {
+  display: block;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 16px;
 }

@@ -53,6 +53,89 @@
   margin-top: 4px;
 }
 
+@mixin primary-button {
+  height: 56px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 2px solid #1976d2;
+  background-color: #fff;
+  color: #1976d2;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #1976d2;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgba(25, 118, 210, 0.6);
+  }
+}
+
+@mixin primary-input {
+  border: 2px solid #1976d2;
+  border-radius: 8px;
+  padding: 8px 12px;
+  height: 30px;
+  width: 100%;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+  }
+}
+
+@mixin form-field-style {
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    border: 2px solid #1976d2;
+    border-radius: 8px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      border-color: darken(#1976d2, 10%);
+    }
+
+    &.mdc-text-field--focused {
+      border-color: #1565c0;
+      box-shadow: 0 0 6px rgba(25, 118, 210, 0.4);
+    }
+  }
+
+  ::ng-deep input.mat-mdc-input-element {
+    height: 100%;
+    padding: 0 12px;
+    font-size: 16px;
+    font-weight: 500;
+    box-sizing: border-box;
+  }
+
+  ::ng-deep .mat-mdc-select-trigger {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  ::ng-deep .mat-mdc-floating-label {
+    color: #1976d2 !important;
+    font-weight: 500;
+  }
+}
+
 @keyframes pop {
   from {
     transform: translateY(6px);

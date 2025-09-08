@@ -8,8 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { TeachersService } from '../../../features/teachers/services/teachers.service';
-import { SubjectsService } from '../../../features/subjects/services/subjects.service';
+import { Teacher, TeachersService } from '../../../features/teachers/services/teachers.service';
+import { Subject, SubjectsService } from '../../../features/subjects/services/subjects.service';
 import { LoadsService } from '../../../features/loads/services/loads.service';
 
 @Component({
@@ -32,8 +32,13 @@ export class EntityFormDialogComponent {
   form: FormGroup;
   isEditMode = false;
   loading = false;
-  teachers: any[] = [];
-  subjects: any[] = [];
+  teachers: Teacher[] = [];
+  subjects: Subject[] = [];
+  entityLabels: { [key: string]: string } = {
+    teacher: 'Teacher',
+    subject: 'Subject',
+    load: 'Load'
+  };
 
   constructor(
     private dialogRef: MatDialogRef<EntityFormDialogComponent>,
@@ -101,6 +106,7 @@ export class EntityFormDialogComponent {
         subject: ['', Validators.required],
         group: ['', Validators.required],
         type: ['lecture', Validators.required],
+        year: [new Date().getFullYear(), [Validators.required, Validators.min(2000)]],
       };
     }
 
@@ -164,6 +170,7 @@ export class EntityFormDialogComponent {
           item.teacher === value.teacher &&
           item.subject === value.subject &&
           item.group?.toLowerCase() === value.group?.toLowerCase() &&
+          item.year === value.year &&
           (!this.isEditMode || item._id !== this.data.entity?._id)
         );
       }
@@ -179,7 +186,7 @@ export class EntityFormDialogComponent {
     this.dialogRef.close(value);
 
     this.snackBar.open(
-      `${this.capitalize(this.data.type)} ${this.isEditMode ? 'updated' : 'created'} successfully!`,
+      `${this.entityLabels[this.data.type]} ${this.isEditMode ? 'updated' : 'created'} successfully!`,
       'Close',
       { duration: 3000 }
     );

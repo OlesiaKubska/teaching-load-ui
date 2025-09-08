@@ -8,6 +8,7 @@ export interface Load {
   subject: string;
   group: string;
   type: string;
+  year: number;
 }
 
 @Injectable({ providedIn: 'root' })
