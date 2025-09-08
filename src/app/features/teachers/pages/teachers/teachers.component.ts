@@ -20,12 +20,18 @@ import { ConfirmDialogComponent } from '../../../../shared/components/confirm-di
   styleUrls: ['./teachers.component.scss'],
 })
 export class TeachersComponent implements OnInit {
-
+  allTeachers: Teacher[] = [];
   rows: Teacher[] = [];
   total = 0;
   pageIndex = 0;
   pageSize = 10;
   loading = false;
+
+  updateRows() {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.rows = this.allTeachers.slice(start, end);
+  }
 
   columns: DataTableColumn[] = [
     { key: 'firstName', header: 'First Name' },
@@ -49,8 +55,9 @@ export class TeachersComponent implements OnInit {
     this.loading = true;
     this.teachersService.getAll().subscribe({
       next: (teachers) => {
-        this.rows = teachers;
+        this.allTeachers = teachers;
         this.total = teachers.length;
+        this.updateRows();
         this.loading = false;
       },
       error: (err) => {
@@ -114,7 +121,9 @@ export class TeachersComponent implements OnInit {
   }
 
   onPage(event: PageEvent) {
-    console.log('pagination event', event);
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updateRows();
   }
 
   onSort(event: Sort) {

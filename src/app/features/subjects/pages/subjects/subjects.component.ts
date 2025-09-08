@@ -17,6 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./subjects.component.scss'],
 })
 export class SubjectsComponent implements OnInit {
+  allSubjects: Subject[] = [];
   rows: Subject[] = [];
   total = 0;
   pageIndex = 0;
@@ -42,11 +43,12 @@ export class SubjectsComponent implements OnInit {
     this.loading = true;
     this.subjectsService.getAll().subscribe({
       next: (data) => {
-        this.rows = data;
+        this.allSubjects = data;
         this.total = data.length;
+        this.updateRows();
         this.loading = false;
       },
-      error: (err) => {
+      error: () => {
         this.snackBar.open('Failed to load subjects', 'Close', { duration: 3000 });
         this.loading = false;
       }
@@ -125,8 +127,16 @@ export class SubjectsComponent implements OnInit {
     console.log('row clicked', row);
   }
 
+  updateRows() {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.rows = this.allSubjects.slice(start, end);
+  }
+
   onPage(event: PageEvent) {
-    console.log('pagination event', event);
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updateRows();
   }
 
   onSort(event: Sort) {

@@ -21,11 +21,18 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['./loads.component.scss'],
 })
 export class LoadsComponent implements OnInit {
+  allLoads: Load[] = [];
   rows: Load[] = [];
   total = 0;
   pageIndex = 0;
   pageSize = 10;
   loading = false;
+
+  updateRows() {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.rows = this.allLoads.slice(start, end);
+  }
 
   selectedYear: number | null = null;
   selectedType: string | null = null;
@@ -82,8 +89,9 @@ export class LoadsComponent implements OnInit {
           filtered = filtered.filter((l) => l.type === this.selectedType);
         }
 
-        this.rows = filtered;
+        this.allLoads = filtered;
         this.total = filtered.length;
+        this.updateRows();
         this.loading = false;
       },
       error: () => {
@@ -158,7 +166,9 @@ export class LoadsComponent implements OnInit {
   }
 
   onPage(event: PageEvent) {
-    console.log('pagination event', event);
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updateRows();
   }
 
   onSort(event: Sort) {
