@@ -62,7 +62,7 @@
       <mat-label>Teacher</mat-label>
       <mat-select formControlName="teacher">
         <mat-option *ngFor="let t of teachers" [value]="t._id">
-          {{ t.firstName }} {{ t.lastName }}
+          {{ t.lastName }} {{ t.firstName }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -87,6 +87,11 @@
         <mat-option value="lecture">Lecture</mat-option>
         <mat-option value="practice">Practice</mat-option>
       </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Year</mat-label>
+      <input matInput type="number" formControlName="year" />
     </mat-form-field>
   </ng-container>
 

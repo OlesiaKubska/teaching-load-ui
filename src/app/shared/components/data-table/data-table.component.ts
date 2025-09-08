@@ -60,9 +60,9 @@ export class DataTableComponent implements OnChanges {
   @ViewChild(MatSort) sortRef?: MatSort;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.columns && Array.isArray(this.columns) && this.columns.length > 0) {
+    if (this.columns?.length) {
       this.displayedColumns = this.columns.map((c) => c.key);
-      if (this.showActions) {
+      if (this.showActions && !this.displayedColumns.includes('actions')) {
         this.displayedColumns.push('actions');
       }
 

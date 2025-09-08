@@ -8,11 +8,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntityFormDialogComponent } from '../../../../shared/components/entity-form-dialog/entity-form-dialog.component';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   standalone: true,
   selector: 'app-loads',
-  imports: [CommonModule, DataTableComponent],
+  imports: [CommonModule, DataTableComponent, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   templateUrl: './loads.component.html',
   styleUrls: ['./loads.component.scss'],
 })
@@ -23,6 +27,12 @@ export class LoadsComponent implements OnInit {
   pageSize = 10;
   loading = false;
 
+  selectedYear: number | null = null;
+  selectedType: string | null = null;
+
+  minYear = 2015;
+  maxYear = new Date().getFullYear();
+  
   columns: DataTableColumn[] = [
     { 
       key: 'teacher', 
@@ -35,7 +45,8 @@ export class LoadsComponent implements OnInit {
       cell: (row) => row.subject?.name || '' 
     },
     { key: 'group', header: 'Group' },
-    { key: 'type', header: 'Type' }
+    { key: 'type', header: 'Type' },
+    { key: 'year', header: 'Year' }
   ];
 
   constructor(
@@ -49,11 +60,30 @@ export class LoadsComponent implements OnInit {
   }
 
   loadLoads() {
+    if (this.selectedYear && (this.selectedYear < 2015 || this.selectedYear > new Date().getFullYear())) {
+        this.snackBar.open(
+          `Year must be between 2015 and ${new Date().getFullYear()}.`,
+          'Close',
+          { duration: 3000 }
+        );
+        this.selectedYear = null;
+      }
+
     this.loading = true;
     this.loadsService.getAll().subscribe({
       next: (data) => {
-        this.rows = data;
-        this.total = data.length;
+        let filtered = data;
+
+        if (this.selectedYear) {
+          filtered = filtered.filter((l) => l.year === this.selectedYear);
+        }
+
+        if (this.selectedType) {
+          filtered = filtered.filter((l) => l.type === this.selectedType);
+        }
+
+        this.rows = filtered;
+        this.total = filtered.length;
         this.loading = false;
       },
       error: () => {

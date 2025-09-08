@@ -1,9 +1,41 @@
 <h2 class="page-title">Teaching Loads</h2>
 
-<div class="toolbar">
-  <button mat-flat-button color="primary" (click)="openCreateDialog()">
-    + Add Load
-  </button>
+<div class="filters">
+  <div class="filters-row">
+    <mat-form-field appearance="outline">
+      <mat-label>Year</mat-label>
+      <input
+        matInput
+        type="number"
+        placeholder="Enter year"
+        [(ngModel)]="selectedYear"
+        (ngModelChange)="loadLoads()"
+        [min]="minYear"
+        [max]="maxYear"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select [(ngModel)]="selectedType" (selectionChange)="loadLoads()">
+        <mat-option [value]="null">All</mat-option>
+        <mat-option value="lecture">Lecture</mat-option>
+        <mat-option value="practice">Practice</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="selectedYear = null; selectedType = null; loadLoads()"
+    >
+      Reset Filters
+    </button>
+
+    <button mat-flat-button color="primary" (click)="openCreateDialog()">
+      + Add Load
+    </button>
+  </div>
 </div>
 
 <app-data-table

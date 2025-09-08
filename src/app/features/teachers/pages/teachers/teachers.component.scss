@@ -1,6 +1,13 @@
+@use '../../../../../styles/shared-ui.mixins' as *;
+
 .page-title {
-  margin: 0 0 12px;
-  font-weight: 600;
+  @include auth-title;
+  max-width: 100%;
+  padding: 0 16px;
+
+  span {
+    font-size: 24px;
+  }
 }
 
 .toolbar {
@@ -9,6 +16,8 @@
   margin-bottom: 12px;
 
   button {
+    @include primary-button;
+    min-width: 160px;
     font-weight: 500;
   }
 }
