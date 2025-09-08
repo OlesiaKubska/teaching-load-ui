@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { getValueForSort, compareValues } from '../../../../shared/utils/table-utils';
 
 @Component({
   standalone: true,
@@ -27,12 +28,6 @@ export class LoadsComponent implements OnInit {
   pageIndex = 0;
   pageSize = 10;
   loading = false;
-
-  updateRows() {
-    const start = this.pageIndex * this.pageSize;
-    const end = start + this.pageSize;
-    this.rows = this.allLoads.slice(start, end);
-  }
 
   selectedYear: number | null = null;
   selectedType: string | null = null;
@@ -66,10 +61,16 @@ export class LoadsComponent implements OnInit {
     this.loadLoads();
   }
 
+  private updateRows() {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.rows = this.allLoads.slice(start, end);
+  }
+
   loadLoads() {
-    if (this.selectedYear && (this.selectedYear < 2015 || this.selectedYear > new Date().getFullYear())) {
+    if (this.selectedYear && (this.selectedYear < this.minYear || this.selectedYear > this.maxYear)) {
         this.snackBar.open(
-          `Year must be between 2015 and ${new Date().getFullYear()}.`,
+          `Year must be between ${this.minYear} and ${this.maxYear}.`,
           'Close',
           { duration: 3000 }
         );
@@ -172,6 +173,20 @@ export class LoadsComponent implements OnInit {
   }
 
   onSort(event: Sort) {
-    console.log('sort event', event);
+    if (!event.active || event.direction === '') {
+      this.allLoads = [...this.allLoads]; 
+      this.updateRows();
+      return;
+    }
+
+    const isAsc = event.direction === 'asc';
+
+    this.allLoads = [...this.allLoads].sort((a, b) => {
+      const valueA = getValueForSort(a, event.active);
+      const valueB = getValueForSort(b, event.active);
+      return compareValues(valueA, valueB, isAsc);
+    });
+
+    this.updateRows();
   }
 }
