@@ -1,27 +1,83 @@
-# TeachingLoadUi
+# 📚 Teaching Load UI (Frontend)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Frontend part of the **Teaching Load Automation System**.  
+The application allows administrators or the academic department to manage information about teachers, subjects, and teaching loads (lectures, practical classes, etc.).  
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Tech stack
+- [Angular 17+](https://angular.io/) — SPA framework  
+- [Angular Material](https://material.angular.io/) — UI components  
+- [RxJS](https://rxjs.dev/) — reactive programming  
+- [TypeScript](https://www.typescriptlang.org/) — static typing  
 
-## Code scaffolding
+---
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## ⚙️ Installation & Run
 
-## Build
+### 1. Clone repository
+```bash
+git clone https://github.com/<your-username>/teaching-load-ui.git
+cd teaching-load-ui/frontend
+```
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 2. Install dependencies
+```bash
+npm install
+```
+---
 
-## Running unit tests
+### 3. Run locally
+```bash
+npm start
+```
+---
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Додаток буде доступний за адресою:
+```bash
+👉 http://localhost:4200
+```
+---
 
-## Running end-to-end tests
+## 🌍 Environment setup
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Base API URL is defined in `app.component.ts`:
 
-## Further help
+```bash
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+apiBaseUrl = "http://localhost:5000/api";
+```
+---
+
+## 📖 Usage
+
+### The app manages three main entities:
+
+- Teachers - manage teacher data (name, degree, position, experience).
+
+- Subjects - manage subjects (name, hours).
+
+- Loads - assign teaching load (teacher, subject, group, year, type of class).
+
+### Features include:
+
+- CRUD-operations (create, edit, delete)
+
+- Filtering and search
+
+- Pagination and sorting
+
+- Data validation
+
+---
+
+## 🔗 Backend API
+[teaching-load-api](https://github.com/OlesiaKubska/teaching-load-api)  
+(Node.js + Express + MongoDB)
+
+---
+
+## 📜 License
+
+MIT License
