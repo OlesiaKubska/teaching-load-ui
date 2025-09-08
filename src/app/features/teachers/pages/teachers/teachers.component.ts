@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntityFormDialogComponent } from '../../../../shared/components/entity-form-dialog/entity-form-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { getValueForSort, compareValues } from '../../../../shared/utils/table-utils';
 
 @Component({
   standalone: true,
@@ -27,7 +28,7 @@ export class TeachersComponent implements OnInit {
   pageSize = 10;
   loading = false;
 
-  updateRows() {
+  private updateRows() {
     const start = this.pageIndex * this.pageSize;
     const end = start + this.pageSize;
     this.rows = this.allTeachers.slice(start, end);
@@ -127,7 +128,21 @@ export class TeachersComponent implements OnInit {
   }
 
   onSort(event: Sort) {
-    console.log('sort event', event);
+    if (!event.active || event.direction === '') {
+      this.allTeachers = [...this.allTeachers]; 
+      this.updateRows();
+      return;
+    }
+
+    const isAsc = event.direction === 'asc';
+
+    this.allTeachers = [...this.allTeachers].sort((a, b) => {
+      const valueA = getValueForSort(a, event.active);
+      const valueB = getValueForSort(b, event.active);
+      return compareValues(valueA, valueB, isAsc);
+    });
+
+    this.updateRows();
   }
 
   openCreateDialog() {

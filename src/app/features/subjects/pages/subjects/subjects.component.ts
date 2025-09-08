@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntityFormDialogComponent } from '../../../../shared/components/entity-form-dialog/entity-form-dialog.component';
 import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { getValueForSort, compareValues } from '../../../../shared/utils/table-utils';
+
 
 @Component({
   standalone: true,
@@ -37,6 +39,12 @@ export class SubjectsComponent implements OnInit {
 
   ngOnInit() {
     this.loadSubjects();
+  }
+
+  private updateRows() {
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.rows = this.allSubjects.slice(start, end);
   }
 
   loadSubjects() {
@@ -127,11 +135,7 @@ export class SubjectsComponent implements OnInit {
     console.log('row clicked', row);
   }
 
-  updateRows() {
-    const start = this.pageIndex * this.pageSize;
-    const end = start + this.pageSize;
-    this.rows = this.allSubjects.slice(start, end);
-  }
+  
 
   onPage(event: PageEvent) {
     this.pageIndex = event.pageIndex;
@@ -140,6 +144,20 @@ export class SubjectsComponent implements OnInit {
   }
 
   onSort(event: Sort) {
-    console.log('sort event', event);
+    if (!event.active || event.direction === '') {
+      this.allSubjects = [...this.allSubjects]; 
+      this.updateRows();
+      return;
+    }
+
+    const isAsc = event.direction === 'asc';
+
+    this.allSubjects = [...this.allSubjects].sort((a, b) => {
+      const valueA = getValueForSort(a, event.active);
+      const valueB = getValueForSort(b, event.active);
+      return compareValues(valueA, valueB, isAsc);
+    });
+
+    this.updateRows();
   }
 }
